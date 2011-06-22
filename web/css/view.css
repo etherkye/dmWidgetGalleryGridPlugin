@@ -1,0 +1,21 @@
+.content_gallery_grid ol.list{    
+
+}
+.content_gallery_grid ol.list li{
+    float: left;
+    list-style-type: none;
+
+}
+.content_gallery_grid ol.list li .image{
+        display: table;
+}
+.content_gallery_grid ol.list .image a{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.content_gallery_grid ol.list .alt{
+    text-align: center;
+    margin: 0;
+}

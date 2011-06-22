@@ -42,33 +42,6 @@ class dmWidgetContentGalleryGridForm extends dmWidgetPluginForm
       'required' => false
     ));
 
-    $this->widgetSchema['cols'] = new sfWidgetFormInputText(array(), array('size' => 5));
-    $this->validatorSchema['cols'] = new sfValidatorNumber(array(
-      'required' => false,
-      'min' => 1,
-      'max' => 20
-    ));
-    if (!$this->hasDefault('cols'))
-    {
-      $this->setDefault('cols', 3);
-    }
-
-    $this->widgetSchema['rows'] = new sfWidgetFormInputText(array(), array('size' => 5));
-    $this->validatorSchema['rows'] = new sfValidatorNumber(array(
-      'required' => false,
-      'min' => 1,
-      'max' => 20
-    ));
-    if (!$this->hasDefault('rows'))
-    {
-      $this->setDefault('rows', 3);
-    }
-
-    $this->widgetSchema['margin'] = new sfWidgetFormInputText(array(), array('size' => 5));
-    $this->validatorSchema['margin'] = new dmValidatorCssSize(array(
-      'required' => false
-    ));
-
     $this->widgetSchema['big_width'] = new sfWidgetFormInputText(array(), array('size' => 5));
     $this->validatorSchema['big_width'] = new dmValidatorCssSize(array(
       'required' => false

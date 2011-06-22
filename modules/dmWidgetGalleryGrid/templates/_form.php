@@ -29,17 +29,13 @@ _tag('div#'.$baseTabId.'_thumbnails',
       _tag('label', __('Dimensions')).
       $form['width']->render().
       'x'.
-      $form['height']->render().
-      $form['method']->label(null, array('class' => 'ml10 mr10 fnone'))->field('.dm_media_method')->error()
+      $form['height']->render()
+      
     ).
     _tag('li.dm_form_element.multi_inputs.thumbnail.clearfix',
-      $form['width']->renderError().
-      $form['height']->renderError().
-      _tag('label', __('Grid')).
-      $form['cols']->render().
-      'x'.
-      $form['rows']->render().
-      $form['margin']->label(null, array('class' => 'ml10 mr10 fnone'))->field('.dm_media_margin')->error()
+      $form['method']->renderError().
+      _tag('label', __('method')).
+      $form['method']->field('.dm_media_margin')
     ).
     _tag('li.dm_form_element.multi_inputs.thumbnail.clearfix',
       $form['big_width']->renderError().

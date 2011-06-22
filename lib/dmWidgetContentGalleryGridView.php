@@ -10,7 +10,7 @@ class dmWidgetContentGalleryGridView extends dmWidgetPluginView
     $this->addRequiredVar(array('medias', 'method', 'transition'));
 
     $this->addJavascript(array('dmWidgetGalleryGridPlugin.view', 'lib.colorbox'));
-    $this->addStylesheet(array('lib.colorbox'));
+    $this->addStylesheet(array('dmWidgetGalleryGridPlugin.view','lib.colorbox'));
   }
 
   protected function filterViewVars(array $vars = array())
@@ -43,20 +43,9 @@ class dmWidgetContentGalleryGridView extends dmWidgetPluginView
       if (!empty($vars['width']) || !empty($vars['height']))
       {
         // calculate grid images width
-        $width = round((dmArray::get($vars, 'width')-(dmArray::get($vars, 'cols')-1)*dmArray::get($vars, 'margin')) / dmArray::get($vars, 'cols'));
-        $height = round((dmArray::get($vars, 'height')-(dmArray::get($vars, 'rows')-1)*dmArray::get($vars, 'margin')) / dmArray::get($vars, 'rows'));
+        $width = round(dmArray::get($vars, 'width'));
+        $height = round(dmArray::get($vars, 'height'));
         $mediaTag->size($width, $height);
-        // check column and set margin as margin-right
-        if ($cur_col == dmArray::get($vars, 'cols')) {
-          $cur_col = 0;
-          $cur_row ++;
-        } else {
-          $mediaTag->style(implode(';',array($mediaTag->get('style'), 'margin-right: '.dmArray::get($vars, 'margin').'px')));
-        }
-        // check row and set margin as margin-bottom
-        if ($cur_row < dmArray::get($vars, 'cols')) {
-          $mediaTag->style(implode(';',array($mediaTag->get('style'), 'margin-bottom: '.dmArray::get($vars, 'margin').'px')));
-        }
       }
   
       $mediaTag->method($vars['method']);
@@ -139,13 +128,15 @@ class dmWidgetContentGalleryGridView extends dmWidgetPluginView
 
     foreach($vars['medias'] as $media)
     {
-      $html .= $helper->tag('li.element', $media['link'] || true
-      ? $helper->link($media['src'])
-        ->set('.gallery_grid_link rel=content_gallery_grid_'.$this->widget['id'])
-        ->set(array('title' => $media['title']))
-        ->text($media['tag'])
-      : $media['tag']
-      );
+      $html .= $helper->open('li.element');
+        $html .= $helper->open('div.image');
+          $html .= $helper->link(!empty($media['link'])?$media['link']:str_replace(' ','%20',$media['src']))
+            ->set(!empty($media['link'])?'':'.gallery_grid_link rel=content_gallery_grid_'.(isset($this->widget['id'])?$this->widget['id']:'images'))
+            ->set(array('title' => $media['title']))
+            ->text($media['tag']);
+        $html .= $helper->close('div');
+        $html .= $helper->tag('div.alt',$media['title']);
+      $html .= $helper->close('li');
     }
     
     $html .= $helper->close('ol');
@@ -172,6 +163,5 @@ class dmWidgetContentGalleryGridView extends dmWidgetPluginView
     }
     
     return implode(', ', $alts);
-  }
-  
+  }  
 }

@@ -1,0 +1,15 @@
+.content_gallery_grid ol.list{
+    display: table;
+    margin: 0;
+}
+.content_gallery_grid ol.list li{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/* Gallery */
+.content_gallery_grid ol li{
+    float: left;
+    list-style-type: none;
+    padding: 5px;
+}
